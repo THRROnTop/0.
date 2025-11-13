@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>موقع الثريا THRR</title>
+<style>
+  body {
+    font-family: "Tajawal", sans-serif;
+    background-color: #212121; /* خلفية رمادية غامق */
+    color: #fff;
+    text-align: center;
+    margin-top: 80px;
+  }
+  h1 {
+    color: #ffffff; /* عنوان أبيض */
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
+  input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    width: 250px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #222;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  input::placeholder {
+    color: #666;
+  }
+  input:focus {
+    border-color: #64b5f6;
+    outline: none;
+    box-shadow: 0 0 6px rgba(100,181,246,0.12);
+  }
+
+  /* زر التأكيد أخضر */
+  button {
+    background-color: #4caf50; /* أخضر */
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transition: background-color .15s ease, transform .06s ease;
+  }
+  button:hover {
+    background-color: #43a047; /* أخضر أغمق عند التحويم */
+  }
+  button:active {
+    transform: translateY(1px);
+  }
+
+  #result-box {
+    margin-top: 40px;
+    display: none;
+  }
+
+  /* صندوق النتيجة بالخلفية الخضراء */
+  #result {
+    background-color: #2e7d32; /* أخضر غامق للخانة */
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 20px;
+    width: 320px;
+    margin: 0 auto;
+    border-radius: 8px;
+    font-size: 20px;
+    color: #ffffff; /* نص أبيض داخل الخانة */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    font-weight: bold;
+    word-break: break-word;
+  }
+
+  /* رسالة الخطأ - تظهر بخلفية فاتحة مع نص أسود */
+  .error {
+    background-color: #fce4ec;
+    color: #880e4f;
+    border: 1px solid rgba(136,14,79,0.08);
+    width: 320px;
+    margin: 0 auto;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  /* ضبط العرض على الشاشات الصغيرة */
+  @media (max-width: 420px) {
+    input, #result, .error {
+      width: 90%;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>موقع خاص لدى الثريا THRR لدى قطاع حرس الحدود</h1>
+
+  <input type="text" id="directive" placeholder="التوجيه">
+  <input type="text" id="militaryCode" placeholder="الكود العسكري">
+  <button onclick="showResult()">تأكيد</button>
+
+  <div id="result-box">
+    <div id="result"></div>
+  </div>
+
+<script>
+function showResult() {
+  var directive = document.getElementById('directive').value.trim();
+  var code = document.getElementById('militaryCode').value.trim();
+  var resultBox = document.getElementById('result-box');
+  var result = document.getElementById('result');
+
+  // إزالة أي رسالة خطأ سابقة من DOM
+  var prevError = document.querySelector('.error');
+  if (prevError) prevError.remove();
+
+  if (directive === '' || code === '') {
+    // عرض رسالة خطأ منفصلة بدل تغيير لون الحقل
+    var error = document.createElement('div');
+    error.className = 'error';
+    error.innerText = "الرجاء تعبئة جميع الخانات.";
+    // أدخل الرسالة أسفل الأزرار (قبل result-box)
+    resultBox.style.display = 'none';
+    document.body.insertBefore(error, resultBox);
+    return;
+  }
+
+  resultBox.style.display = 'block';
+  result.innerHTML = directive + " - " + code; // فقط التوجيه والكود بخط واحد
+}
+</script>
+
+</body>
+</html>
